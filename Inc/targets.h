@@ -1,12 +1,12 @@
 #ifndef USE_MAKE
 
-#define FD6288
+//#define FD6288
 //#define IFLIGHT
 //#define MP6531
 //#define TMOTOR55     // like iflight but with leds
 //#define TMOTOR45
 //#define HGLRC
-//#define SISKIN
+#define SISKIN
 //#define MAMBA_F50PRO
 //#define WRAITH32
 //#define AIKON20X20
@@ -71,7 +71,7 @@
 
 #ifdef SISKIN
 #define FIRMWARE_NAME           "SISKIN_PA2  "
-#define DEAD_TIME               400
+#define DEAD_TIME               45
 #define HARDWARE_GROUP_F0_A
 #define USE_SERIAL_TELEMETRY
 #endif
