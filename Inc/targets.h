@@ -71,7 +71,7 @@
 
 #ifdef SISKIN
 #define FIRMWARE_NAME           "SISKIN_PA2  "
-#define DEAD_TIME               45
+#define DEAD_TIME               400
 #define HARDWARE_GROUP_F0_A
 #define USE_SERIAL_TELEMETRY
 #endif
