@@ -1155,6 +1155,7 @@ void zcfoundroutine(){   // only used in polling mode, blocking routine.
 
 void CalibrateThrottle() {
 	allOff();
+	delayMillis(500);
 	playLearnModeTune();
 	int current_max = 1000;
 	int current_min = 2000;
@@ -1174,7 +1175,7 @@ void CalibrateThrottle() {
 
 		last_input = newinput;
 
-		if (timout_counter >= 5000)
+		if (timout_counter >= 3000)
 			throttle_learn_active = 0;
 
 		if (newinput > current_max) {
@@ -1194,6 +1195,8 @@ void CalibrateThrottle() {
 	while (newinput > 1300) {
 		// warte auf throttle 0
 	}
+	delayMillis(100);
+	playChangedTone();
 	
 	while (throttle_learn_active) {
 		LL_IWDG_ReloadCounter(IWDG);
@@ -1206,7 +1209,7 @@ void CalibrateThrottle() {
 
 		last_input = newinput;
 
-		if (timout_counter >= 5000)
+		if (timout_counter >= 3000)
 			throttle_learn_active = 0;
 
 		/*if (newinput > current_max) {
@@ -1230,6 +1233,7 @@ void CalibrateThrottle() {
 	}
 
 	playEndLearnModeTune();
+	delayMillis(500);
 }
 
 int main(void)

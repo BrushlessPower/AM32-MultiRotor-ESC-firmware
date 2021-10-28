@@ -70,8 +70,8 @@
 #endif
 
 #ifdef SISKIN
-#define FIRMWARE_NAME           "SISKIN_PA2  "
-#define DEAD_TIME               45
+#define FIRMWARE_NAME           "SISKIN_BlCtrl  "
+#define DEAD_TIME               25					// 25*20.8ns = 520ns
 #define HARDWARE_GROUP_F0_A
 #define USE_SERIAL_TELEMETRY
 #endif
