@@ -1350,7 +1350,7 @@ if (GIMBAL_MODE){
 
 LL_IWDG_ReloadCounter(IWDG);
 
-if (!armed && newinput > (1700) {
+if (!armed && newinput > 1700) {
 			CalibrateThrottle();
 		}
 
