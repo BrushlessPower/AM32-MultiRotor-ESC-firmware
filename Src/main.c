@@ -221,6 +221,8 @@ uint16_t battery_voltage;  // scale in volts * 10.  1260 is a battery voltage of
 
 char cell_count = 0;
 
+char throttle_learn_active = 0;
+
 char brushed_direction_set = 0;
 
 uint16_t consumption_timer = 0;
@@ -791,6 +793,9 @@ void tenKhzRoutine(){
 		consumed_current = (float)actual_current/3600 + consumed_current;
 		consumption_timer = 0;
 	}
+	if (throttle_learn_active)
+		return;
+	
 if(!armed){
 	if(inputSet){
 		if(adjusted_input == 0){
