@@ -1182,6 +1182,38 @@ void CalibrateThrottle() {
 			changed = 1;
 		}
 
+		/*if (newinput < current_min) {
+			current_min = newinput;
+			changed = 1;
+		}*/
+
+		delayMillis(1);
+	}
+	throttle_learn_active = 1;
+	playChangedTone();
+	while (newinput > 1300) {
+		// warte auf throttle 0
+	}
+	
+	while (throttle_learn_active) {
+		LL_IWDG_ReloadCounter(IWDG);
+
+
+		if (getAbsDif(last_input, newinput) < 10)
+			timout_counter++;
+		else			
+			timout_counter = 0;
+
+		last_input = newinput;
+
+		if (timout_counter >= 5000)
+			throttle_learn_active = 0;
+
+		/*if (newinput > current_max) {
+			current_max = newinput;
+			changed = 1;
+		}*/
+
 		if (newinput < current_min) {
 			current_min = newinput;
 			changed = 1;
