@@ -22,6 +22,9 @@ void playChangedTone(void);
 void saveEEpromSettings(void);
 void setVolume(uint8_t volume);
 
+void playLearnModeTune(void);
+void playEndLearnModeTune(void);
+
 extern void delayMillis();
 
 
