@@ -1156,8 +1156,8 @@ void zcfoundroutine(){   // only used in polling mode, blocking routine.
 void CalibrateThrottle() {
 	allOff();
 	playLearnModeTune();
-	int current_max = newinput;
-	int current_min = newinput;
+	int current_max = 1000;
+	int current_min = 2000;
 	int last_input = newinput;
 	int timout_counter = 0;
 	char changed = 0;
@@ -1223,9 +1223,9 @@ void CalibrateThrottle() {
 	}
 
 	if (changed) {
-		eepromBuffer[23] = (current_min - 750) / 2;
-		eepromBuffer[24] = (current_max - 1750) / 2;
-		eepromBuffer[25] = ((current_min + current_max) / 2) - 1374;
+		eepromBuffer[32] = (current_min - 750) / 2;
+		eepromBuffer[33] = (current_max - 1750) / 2;
+		eepromBuffer[34] = ((current_min + current_max) / 2) - 1374;
 		saveEEpromSettings();
 	}
 
