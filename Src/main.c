@@ -1157,6 +1157,12 @@ void CalibrateThrottle() {
 	allOff();
 	delayMillis(500);
 	playLearnModeTune();
+	delayMillis(100);
+	playChangedTone();
+	delayMillis(100);
+	playChangedTone();
+	delayMillis(100);
+	playChangedTone();
 	int current_max = 1000;
 	int current_min = 2000;
 	int last_input = newinput;
@@ -1198,6 +1204,10 @@ void CalibrateThrottle() {
 	}
 	delayMillis(100);
 	playChangedTone();
+	delayMillis(100);
+	playChangedTone();
+	delayMillis(100);
+	playChangedTone();
 	last_input = newinput;
 	
 	while (throttle_learn_active) {
@@ -1233,6 +1243,13 @@ void CalibrateThrottle() {
 		eepromBuffer[34] = ((current_min + current_max) / 2) - 1374;
 		saveEEpromSettings();
 	}
+	delayMillis(100);
+	playChangedTone();
+	delayMillis(100);
+	playChangedTone();
+	delayMillis(100);
+	playChangedTone();
+	delayMillis(100);
 	throttle_learn_active = 0;
 	playEndLearnModeTune();
 	delayMillis(500);
@@ -1388,17 +1405,15 @@ if (GIMBAL_MODE){
 	 temperature_offset = 230;
  }
 #endif
-if (!armed && newinput > 1700) {
-			CalibrateThrottle();
-		}
+
  while (1)
   {
 
 LL_IWDG_ReloadCounter(IWDG);
 
-/*if (!armed && newinput > 1700) {
+if (!armed && (newinput > 1700)) {
 			CalibrateThrottle();
-		}*/
+		}
 
 	  adc_counter++;
 	  if(adc_counter>100){   // for testing adc and telemetry
