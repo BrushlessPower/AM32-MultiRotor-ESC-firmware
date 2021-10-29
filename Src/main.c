@@ -1163,8 +1163,9 @@ void CalibrateThrottle() {
 	int timout_counter = 0;
 	char changed = 0;
 	throttle_learn_active = 1;
+	bool throttle_learn = true
 
-	while (throttle_learn_active) {
+	while (throttle_learn) {
 		LL_IWDG_ReloadCounter(IWDG);
 
 
@@ -1176,7 +1177,7 @@ void CalibrateThrottle() {
 		last_input = newinput;
 
 		if (timout_counter >= 3000)
-			throttle_learn_active = 0;
+			throttle_learn = false;
 
 		if (newinput > current_max) {
 			current_max = newinput;
@@ -1190,13 +1191,14 @@ void CalibrateThrottle() {
 
 		delayMillis(1);
 	}
-	throttle_learn_active = 1;
+	throttle_learn = true;
 	playChangedTone();
 	while (newinput > 1300) {
 		// warte auf throttle 0
 	}
 	delayMillis(100);
 	playChangedTone();
+	last_input = newinput;
 	
 	while (throttle_learn_active) {
 		LL_IWDG_ReloadCounter(IWDG);
@@ -1210,7 +1212,7 @@ void CalibrateThrottle() {
 		last_input = newinput;
 
 		if (timout_counter >= 3000)
-			throttle_learn_active = 0;
+			throttle_learn = false;
 
 		/*if (newinput > current_max) {
 			current_max = newinput;
@@ -1231,7 +1233,7 @@ void CalibrateThrottle() {
 		eepromBuffer[34] = ((current_min + current_max) / 2) - 1374;
 		saveEEpromSettings();
 	}
-
+	throttle_learn_active = 0;
 	playEndLearnModeTune();
 	delayMillis(500);
 }
