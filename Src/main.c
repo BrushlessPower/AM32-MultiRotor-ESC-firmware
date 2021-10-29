@@ -1163,7 +1163,7 @@ void CalibrateThrottle() {
 	int timout_counter = 0;
 	char changed = 0;
 	throttle_learn_active = 1;
-	bool throttle_learn = true
+	char throttle_learn = 1;
 
 	while (throttle_learn) {
 		LL_IWDG_ReloadCounter(IWDG);
@@ -1177,7 +1177,7 @@ void CalibrateThrottle() {
 		last_input = newinput;
 
 		if (timout_counter >= 3000)
-			throttle_learn = false;
+			throttle_learn = 0;
 
 		if (newinput > current_max) {
 			current_max = newinput;
@@ -1191,7 +1191,7 @@ void CalibrateThrottle() {
 
 		delayMillis(1);
 	}
-	throttle_learn = true;
+	throttle_learn = 1;
 	playChangedTone();
 	while (newinput > 1300) {
 		// warte auf throttle 0
@@ -1212,7 +1212,7 @@ void CalibrateThrottle() {
 		last_input = newinput;
 
 		if (timout_counter >= 3000)
-			throttle_learn = false;
+			throttle_learn = 0;
 
 		/*if (newinput > current_max) {
 			current_max = newinput;
@@ -1388,14 +1388,17 @@ if (GIMBAL_MODE){
 	 temperature_offset = 230;
  }
 #endif
+if (!armed && newinput > 1700) {
+			CalibrateThrottle();
+		}
  while (1)
   {
 
 LL_IWDG_ReloadCounter(IWDG);
 
-if (!armed && newinput > 1700) {
+/*if (!armed && newinput > 1700) {
 			CalibrateThrottle();
-		}
+		}*/
 
 	  adc_counter++;
 	  if(adc_counter>100){   // for testing adc and telemetry
