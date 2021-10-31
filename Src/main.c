@@ -1155,25 +1155,17 @@ void zcfoundroutine(){   // only used in polling mode, blocking routine.
 
 void CalibrateThrottle() {
 	allOff();
-	delayMillis(500);
+	delayMillis(300);
 	playLearnModeTune();
-	delayMillis(100);
-	playChangedTone();
-	delayMillis(100);
-	playChangedTone();
-	delayMillis(100);
-	playChangedTone();
-	int current_max = 1000;
-	int current_min = 2000;
+	int current_max = newinput;
+	int current_min = newinput;
 	int last_input = newinput;
 	int timout_counter = 0;
 	char changed = 0;
 	throttle_learn_active = 1;
-	char throttle_learn = 1;
 
-	while (throttle_learn) {
+	while (throttle_learn_active) {
 		LL_IWDG_ReloadCounter(IWDG);
-
 
 		if (getAbsDif(last_input, newinput) < 10)
 			timout_counter++;
@@ -1182,52 +1174,13 @@ void CalibrateThrottle() {
 
 		last_input = newinput;
 
-		if (timout_counter >= 3000)
-			throttle_learn = 0;
+		if (timout_counter >= 5000)
+			throttle_learn_active = 0;
 
 		if (newinput > current_max) {
 			current_max = newinput;
 			changed = 1;
 		}
-
-		/*if (newinput < current_min) {
-			current_min = newinput;
-			changed = 1;
-		}*/
-
-		delayMillis(1);
-	}
-	throttle_learn = 1;
-	playChangedTone();
-	while (newinput > 1300) {
-		// warte auf throttle 0
-	}
-	delayMillis(100);
-	playChangedTone();
-	delayMillis(100);
-	playChangedTone();
-	delayMillis(100);
-	playChangedTone();
-	last_input = newinput;
-	
-	while (throttle_learn_active) {
-		LL_IWDG_ReloadCounter(IWDG);
-
-
-		if (getAbsDif(last_input, newinput) < 10)
-			timout_counter++;
-		else			
-			timout_counter = 0;
-
-		last_input = newinput;
-
-		if (timout_counter >= 3000)
-			throttle_learn = 0;
-
-		/*if (newinput > current_max) {
-			current_max = newinput;
-			changed = 1;
-		}*/
 
 		if (newinput < current_min) {
 			current_min = newinput;
@@ -1243,16 +1196,7 @@ void CalibrateThrottle() {
 		eepromBuffer[34] = ((current_min + current_max) / 2) - 1374;
 		saveEEpromSettings();
 	}
-	delayMillis(100);
-	playChangedTone();
-	delayMillis(100);
-	playChangedTone();
-	delayMillis(100);
-	playChangedTone();
-	delayMillis(100);
-	throttle_learn_active = 0;
 	playEndLearnModeTune();
-	delayMillis(500);
 }
 
 int main(void)
