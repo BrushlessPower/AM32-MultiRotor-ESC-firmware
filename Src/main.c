@@ -155,7 +155,7 @@ char brake_on_stop = 0;
 char stall_protection = 0;
 char use_sin_start = 0;
 char TLM_ON_INTERVAL = 0;
-uint8_t telemetry_interval_ms = 30;
+uint8_t telemetry_interval_ms = 5;
 
 char advance_level = 2;			// 7.5 degree increments 0 , 7.5, 15, 22.5)
 uint16_t motor_kv = 2000;
